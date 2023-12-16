@@ -7,13 +7,16 @@ import { FaCartShopping } from "react-icons/fa6";
 import { IoClose } from "react-icons/io5";
 
 import Data from "./data/data"
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addtocart } from './slices/cartSlice';
 
 
 function App() {
   let [open,setOpen] =useState(false)
   let dispatch =useDispatch()
+  let cartData =useSelector((state)=>state.cartSlice.cartitem)
+
+ 
 
   let handleAddtoCart =(item)=>{
     dispatch(addtocart({
@@ -29,7 +32,7 @@ function App() {
      <h1 className='font-bold text-[#111111] text-center pt-4 text-4xl'>Our New Arrival</h1>
      <div onClick={()=>setOpen(true)} className='flex justify-end relative'>
        <FaCartShopping />
-       <p className='font-medium text-base text-orange-500 absolute top-[-17px] right-[-7px]'>5</p>
+       <p className='font-medium text-base text-orange-500 absolute top-[-17px] right-[-7px]'>{cartData&&cartData.length}</p>
      </div>
      {
 
@@ -46,32 +49,27 @@ function App() {
           <li>Quantity</li>
           <li>Tottal</li>
         </ul>
-
-        <ul className='flex text-white justify-between mt-4 items-center bg-green-500 px-5' >
+ 
+ {
+  cartData &&
+  cartData.map((item,index)=>(
+        <ul key={index} className='flex text-white justify-between mt-4 items-center bg-green-500 px-5' >
           <li><IoClose className='text-white' /></li>
-          <li className='text-xs'>New Arrival One</li>
-          <li className='w-16'><img src={one} alt="" /></li>
-          <li>44</li>
+          <li className='text-xs'>{item.name}</li>
+          <li className='w-16'><img src={item.url} alt="" /></li>
+          <li>{item.price}</li>
           <li className='flex items-center  px-0.5'>
             <button className='font-medium text-base text-white px-1.5 mr-1 bg-black'>-</button>
-            <p>12</p>
+            <p>{item.quantity}</p>
             <button className='font-medium text-base text-white px-1.5 ml-1 bg-black'>+</button>
           </li>
           <li>Tottal</li>
         </ul>
 
-        <ul className='flex text-white justify-between mt-4 items-center bg-green-500 px-5' >
-          <li><IoClose className='text-white' /></li>
-          <li className='text-xs'>New Arrival One</li>
-          <li className='w-16'><img src={one} alt="" /></li>
-          <li>44</li>
-          <li className='flex items-center  px-0.5'>
-            <button className='font-medium text-base text-white px-1.5 mr-1 bg-black'>-</button>
-            <p>12</p>
-            <button className='font-medium text-base text-white px-1.5 ml-1 bg-black'>+</button>
-          </li>
-          <li>Tottal</li>
-        </ul>
+  ))
+ }
+
+   
 
       </div>
      </div>

@@ -21,22 +21,22 @@ let data =[
     },
     {
       productUrl  :"../src/assets/g.jpg",
-      productName : "New Arrival Four",
+      productName : "New Arrival Five",
       productPrice       : 78
     },
     {
       productUrl  :"../src/assets/i.jpg",
-      productName : "New Arrival Four",
+      productName : "New Arrival Six",
       productPrice       : 78
     },
     {
       productUrl  :"../src/assets/f.jpg",
-      productName : "New Arrival Four",
+      productName : "New Arrival Seven",
       productPrice       : 78
     },
     {
       productUrl  :"../src/assets/g.jpg",
-      productName : "New Arrival Four",
+      productName : "New Arrival Eight",
       productPrice       : 78
     },
     
