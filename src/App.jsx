@@ -13,7 +13,7 @@ function App() {
   let [open,setOpen] =useState(false)
   return (
     <div className='max-w-[1400px] mx-auto '>
-     <h1 className='font-bold text-[#111111] text-center pt-4 text-4xl'>Our Best Product</h1>
+     <h1 className='font-bold text-[#111111] text-center pt-4 text-4xl'>Our New Arrival</h1>
      <div onClick={()=>setOpen(true)} className='flex justify-end relative'>
        <FaCartShopping />
        <p className='font-medium text-base text-orange-500 absolute top-[-17px] right-[-7px]'>5</p>
@@ -62,6 +62,7 @@ function App() {
 
       </div>
      </div>
+
      <div className='flex justify-between flex-wrap mt-6 gap-y-4'>
       {
         Data.map((item,index)=>{ 
