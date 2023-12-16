@@ -7,10 +7,23 @@ import { FaCartShopping } from "react-icons/fa6";
 import { IoClose } from "react-icons/io5";
 
 import Data from "./data/data"
+import { useDispatch } from 'react-redux';
+import { addtocart } from './slices/cartSlice';
 
 
 function App() {
   let [open,setOpen] =useState(false)
+  let dispatch =useDispatch()
+
+  let handleAddtoCart =(item)=>{
+    dispatch(addtocart({
+      name     : item.productName,
+      url      : item.productUrl,
+      price    : item.productPrice,
+      quantity : 1
+    }))
+
+  }
   return (
     <div className='max-w-[1400px] mx-auto '>
      <h1 className='font-bold text-[#111111] text-center pt-4 text-4xl'>Our New Arrival</h1>
@@ -72,7 +85,7 @@ function App() {
               <div className='bg-white text-right pr-2 py-2 absolute group-hover:bottom-0 duration-500 -bottom-1/2 left-0 w-full'>
                 <p className='font-medium text-black text-sm flex gap-x-2 items-center justify-end'>Add to Wish List <FaHeart/></p>
                 <p className='font-medium my-2 text-black text-sm flex gap-x-2 items-center justify-end'>Comapare <FaCodeCompare/></p>
-                <p className='font-medium text-black text-sm flex gap-x-2 items-center justify-end'>Add to Cart <BiSolidCart size={20}/></p>
+                <p onClick={()=>{handleAddtoCart(item)}}  className='font-medium cursor-pointer text-black text-sm flex gap-x-2 items-center justify-end'>Add to Cart <BiSolidCart size={20}/></p>
               </div>
             </div>
               <div className='flex justify-between px-2 pt-2'>
