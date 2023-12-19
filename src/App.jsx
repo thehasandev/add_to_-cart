@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import one from "./assets/a.jpg"
 import { BiSolidCart } from "react-icons/bi";
 import { FaHeart } from "react-icons/fa";
@@ -8,13 +8,14 @@ import { IoClose } from "react-icons/io5";
 
 import Data from "./data/data"
 import { useDispatch, useSelector } from 'react-redux';
-import { addtocart, removecart } from './slices/cartSlice';
+import { addtocart, decrement, increment, removecart } from './slices/cartSlice';
 
 
 function App() {
   let [open,setOpen] =useState(false)
   let dispatch =useDispatch()
   let cartData =useSelector((state)=>state.cartSlice.cartitem)
+  let [tottalPrice,setTottalPrice] =useState("")
 
  
 
@@ -25,14 +26,28 @@ function App() {
       price    : item.productPrice,
       quantity : 1
     }))
-
-
-
   }
 
   let handleRemoveCart =(item)=>{
         dispatch(removecart(item)) 
   }
+
+  let handelIncrement =(item)=>{
+   dispatch(increment(item))
+  }
+  let handelDecrement =(item)=>{
+   dispatch(decrement(item))
+  }
+
+  useEffect(()=>{
+    let price =0
+   cartData.map((item)=>{
+    price = price+item.price*item.quantity
+   })
+   setTottalPrice(price)
+    
+  },[cartData])
+
   return (
     <div className='max-w-[1400px] mx-auto '>
      <h1 className='font-bold text-[#111111] text-center pt-4 text-4xl'>Our New Arrival</h1>
@@ -65,7 +80,7 @@ function App() {
           <li className='w-16'><img src={item.url} alt="" /></li>
           <li>{item.price}</li>
           <li className='flex items-center  px-0.5'>
-            <button className='font-medium text-base text-white px-1.5 mr-1 bg-black'>-</button>
+            <button onClick={()=>{handelDecrement(item)}} className='font-medium text-base text-white px-1.5 mr-1 bg-black'>-</button>
             <p>{item.quantity}</p>
             <button onClick={()=>{handelIncrement(item)}} className='font-medium text-base text-white px-1.5 ml-1 bg-black'>+</button>
           </li>
@@ -78,6 +93,10 @@ function App() {
    
 
       </div>
+      {
+        tottalPrice>0 &&
+        <h1 className='font-medium p-4 text-right text-lg'>Tottal : {tottalPrice && tottalPrice}</h1>
+      }
      </div>
 
      <div className='flex justify-between flex-wrap mt-6 gap-y-4'>
